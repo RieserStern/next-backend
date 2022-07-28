@@ -1,0 +1,786 @@
+#+TITLE: Documentation from API
+
+* Products
+** Methods get
+*** getProducts
+#+begin_src restclient
+GET http://localhost:3000/products
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "total": 9,
+  "products": [
+    {
+      "_id": "615ce7eb2d022b03d2d81bee",
+      "name": "Smartphone",
+      "description": "this is technology",
+      "price": 102,
+      "stock": 1
+    },
+    {
+      "_id": "615ce8472d022b03d2d81bef",
+      "name": "Smart",
+      "description": "this is technology",
+      "price": 12,
+      "stock": 12
+    },
+    {
+      "_id": "615d81cfd2ded30b367b6b98",
+      "image": "https://google.com/",
+      "stock": 100,
+      "price": 1000,
+      "description": "This is technology",
+      "name": "Smartphone",
+      "__v": 0
+    },
+    {
+      "_id": "615d81dad2ded30b367b6b9a",
+      "image": "https://google.com/",
+      "stock": 5,
+      "price": 100,
+      "description": "This is technology",
+      "name": "Smartphone",
+      "__v": 0
+    },
+    {
+      "_id": "615d81dbd2ded30b367b6b9e",
+      "image": "https://google.com/",
+      "stock": 5,
+      "price": 100,
+      "description": "This is technology",
+      "name": "Smartphone",
+      "__v": 0
+    }
+  ]
+}
+// GET http://localhost:3000/products
+// HTTP/1.1 200 OK
+// X-Powered-By: Express
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 696
+// ETag: W/"2b8-q2s9l/gf0q3xO0NRUbUM4rLpvuI"
+// Date: Thu, 07 Oct 2021 18:23:25 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.024051s
+#+END_SRC
+
+#+RESULTS:
+*** get Products with filter
+#+begin_src restclient
+GET http://localhost:3000/products?limit=9&offset=0&minPrice=150&maxPrice=1000
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "total": 9,
+  "products": [
+    {
+      "categories": {
+        "name": "Mouse",
+        "image": "https://logitech.com/bo"
+      },
+      "_id": "615f3b068643e2906f8b590d",
+      "brand": {
+        "_id": "615f3a798643e2906f8b590a",
+        "image": "logitech.com/brand/exe",
+        "name": "logitech",
+        "__v": 0
+      },
+      "image": "https://logitech.com/",
+      "stock": 50,
+      "price": 200,
+      "description": "Logitech Pro",
+      "name": "Mouse",
+      "__v": 0
+    },
+    {
+      "_id": "615d81cfd2ded30b367b6b98",
+      "image": "https://google.com/",
+      "stock": 100,
+      "price": 1000,
+      "description": "This is technology",
+      "name": "Smartphone",
+      "__v": 0
+    }
+  ]
+}
+// GET http://localhost:3000/products?limit=9&offset=0&minPrice=150&maxPrice=1000
+// HTTP/1.1 200 OK
+// X-Powered-By: Express
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 485
+// ETag: W/"1e5-KnGsVbLPPOm0/3SlVCP1TtsDMc8"
+// Date: Thu, 07 Oct 2021 18:26:16 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.038223s
+#+END_SRC
+
+*** getProduct
+#+begin_src restclient
+GET http://localhost:3000/products/3213123
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "statusCode": 500,
+  "message": "Internal server error"
+}
+// GET http://localhost:3000/products/3213123
+// HTTP/1.1 500 Internal Server Error
+// X-Powered-By: Express
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 52
+// ETag: W/"34-rlKccw1E+/fV8niQk4oFitDfPro"
+// Date: Wed, 06 Oct 2021 11:13:01 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.002779s
+#+END_SRC
+** Methods Post
+*** Create product
+#+begin_src restclient
+POST http://localhost:3000/products
+Content-Type: application/json
+{
+  "name": "Mouse",
+  "description": "Logitech Pro",
+  "price": 200,
+  "stock": 50,
+  "image": "https://logitech.com/",
+  "categories": {
+    "name": "Mouse",
+    "image": "https://logitech.com/bo"
+  },
+  "brand": "615f3a798643e2906f8b590a"
+}
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "brand": "615f3a798643e2906f8b590a",
+  "categories": {
+    "name": "Mouse",
+    "image": "https://logitech.com/bo"
+  },
+  "image": "https://logitech.com/",
+  "stock": 50,
+  "price": 200,
+  "description": "Logitech Pro",
+  "name": "Mouse",
+  "_id": "615f3b068643e2906f8b590d",
+  "__v": 0
+}
+// POST http://localhost:3000/products
+// HTTP/1.1 201 Created
+// X-Powered-By: Express
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 240
+// ETag: W/"f0-MMjZOPPki59+WKXeqxqpY2A0cmg"
+// Date: Thu, 07 Oct 2021 18:23:02 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.008321s
+#+END_SRC
+
+** Methods Patch
+*** update product
+#+begin_src restclient
+PUT http://localhost:3000/products/615d81cfd2ded30b367b6b98
+Content-Type: application/json
+{
+    "price": 1000,
+    "stock": 100
+}
+
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "_id": "615d81cfd2ded30b367b6b98",
+  "image": "https://google.com/",
+  "stock": 100,
+  "price": 1000,
+  "description": "This is technology",
+  "name": "Smartphone",
+  "__v": 0
+}
+// PUT http://localhost:3000/products/615d81cfd2ded30b367b6b98
+// HTTP/1.1 200 OK
+// X-Powered-By: Express
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 152
+// ETag: W/"98-j+Fyd9oIFZp6MVuU10xDkzViLv0"
+// Date: Wed, 06 Oct 2021 11:01:56 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.006803s
+#+END_SRC
+
+#+RESULTS:
+
+** Methods Delete
+*** Delete product
+#+begin_src restclient
+DELETE http://localhost:3000/products/615d81dbd2ded30b367b6b9c
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "_id": "615d81dbd2ded30b367b6b9c",
+  "image": "https://google.com/",
+  "stock": 5,
+  "price": 100,
+  "description": "This is technology",
+  "name": "Smartphone",
+  "__v": 0
+}
+// DELETE http://localhost:3000/products/615d81dbd2ded30b367b6b9c
+// HTTP/1.1 200 OK
+// X-Powered-By: Express
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 149
+// ETag: W/"95-9LQfMtWfBHCKHoOZHPoGQ4m65ME"
+// Date: Wed, 06 Oct 2021 11:02:32 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.013721s
+#+END_SRC
+* Users
+** Methods Get
+*** Get users
+#+begin_src restclient
+GET http://localhost:3000/users
+#+end_src
+
+*** Get user
+#+begin_src restclient
+GET http://localhost:3000/users/1
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "statusCode": 404,
+  "message": "User with id: 2 not exists",
+  "error": "Not Found"
+}
+// GET http://localhost:3000/users/2
+// HTTP/1.1 404 Not Found
+// X-Powered-By: Express
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 77
+// ETag: W/"4d-TUjuZ5mQrWcNPUrAFJnZpTINBqA"
+// Date: Sat, 02 Oct 2021 00:40:19 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.002036s
+#+END_SRC
+
+** Methods Post
+#+begin_src restclient
+POST http://localhost:3000/users
+Content-Type: application/json
+{
+    "email": "hello@gmail.com",
+    "password": "hello_2021",
+    "role": "user"
+}
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "id": 3,
+  "email": "hello@gmail.com",
+  "password": "hello_2021",
+  "role": "user"
+}
+// POST http://localhost:3000/users
+// HTTP/1.1 201 Created
+// X-Powered-By: Express
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 72
+// ETag: W/"48-1U6FXlnieqhLFw42p1dA3Cnw188"
+// Date: Sat, 02 Oct 2021 00:37:56 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.005702s
+#+END_SRC
+
+** Methods Put
+#+begin_src restclient
+PUT http://localhost:3000/users/2
+Content-Type: application/json
+{
+    "password": "hello_2021"
+}
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "id": 2,
+  "email": "adios@gmail.com",
+  "password": "hello_2021",
+  "role": "user"
+}
+// PUT http://localhost:3000/users/2
+// HTTP/1.1 200 OK
+// X-Powered-By: Express
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 72
+// ETag: W/"48-1qSQAZ+qovBiOZViFfQVL6CMMXw"
+// Date: Sat, 02 Oct 2021 00:39:50 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.002488s
+#+END_SRC
+
+** Methods Delete
+#+begin_src restclient
+DELETE http://localhost:3000/users/2
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC html
+This user is delete
+<!-- DELETE http://localhost:3000/users/2 -->
+<!-- HTTP/1.1 200 OK -->
+<!-- X-Powered-By: Express -->
+<!-- Content-Type: text/html; charset=utf-8 -->
+<!-- Content-Length: 19 -->
+<!-- ETag: W/"13-kbjy8/Q5dTwoltSoa3tc3oaDGgk" -->
+<!-- Date: Sat, 02 Oct 2021 00:40:03 GMT -->
+<!-- Connection: keep-alive -->
+<!-- Keep-Alive: timeout=5 -->
+<!-- Request duration: 0.001797s -->
+#+END_SRC
+
+* Brand
+** Method Get
+*** Brands
+#+begin_src restclient
+GET http://localhost:3000/brand
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+[
+  {
+    "_id": "615cfbb62d022b03d2d81bf5",
+    "name": "Asus"
+  },
+  {
+    "_id": "615cfbcf2d022b03d2d81bf6",
+    "name": "Strix"
+  },
+  {
+    "_id": "615f3a798643e2906f8b590a",
+    "image": "logitech.com/brand/exe",
+    "name": "logitech",
+    "__v": 0
+  }
+]
+// GET http://localhost:3000/brand
+// HTTP/1.1 200 OK
+// X-Powered-By: Express
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 194
+// ETag: W/"c2-oe+eUtsZMQcZfz0g0g0g5YFFjhs"
+// Date: Thu, 07 Oct 2021 18:20:52 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.032541s
+#+END_SRC
+
+*** Brand
+#+begin_src restclient
+GET http://localhost:3000/brand/Strix
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "id": 3,
+  "name": "Rock",
+  "image": "logitech.com/brand/exe"
+}
+// GET http://localhost:3000/brand/rock
+// HTTP/1.1 200 OK
+// X-Powered-By: Express
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 55
+// ETag: W/"37-799hAD1YR1uLR7E0T7vpjZuPsoY"
+// Date: Fri, 01 Oct 2021 19:40:25 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.002110s
+#+END_SRC
+*** Create Brand
+#+begin_src restclient
+POST http://localhost:3000/brand
+Content-Type: application/json
+{
+    "name": "logitech",
+    "image": "logitech.com/brand/exe"
+}
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "image": "logitech.com/brand/exe",
+  "name": "logitech",
+  "_id": "615f3a798643e2906f8b590a",
+  "__v": 0
+}
+// POST http://localhost:3000/brand
+// HTTP/1.1 201 Created
+// X-Powered-By: Express
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 93
+// ETag: W/"5d-xHjEAVoGO+C4XKMqRNQOWl1nWYk"
+// Date: Thu, 07 Oct 2021 18:20:41 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.084433s
+#+END_SRC
+*** Update Brand
+#+begin_src restclient
+PUT http://localhost:3000/brand/rock
+Content-Type: application/json
+{
+    "name": "rockStar",
+    "image": "rockStar.com"
+}
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "id": 2,
+  "name": "rockStar",
+  "image": "rockStar.com"
+}
+// PUT http://localhost:3000/brand/rock
+// HTTP/1.1 200 OK
+// X-Powered-By: Express
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 49
+// ETag: W/"31-h2U8360/NQfzk7fB5CKCOaJeSbM"
+// Date: Fri, 01 Oct 2021 19:49:56 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.002711s
+#+END_SRC
+*** Delete Brand
+#+begin_src restclient
+DELETE http://localhost:3000/brand/rock
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC html
+Brand delete
+<!-- DELETE http://localhost:3000/brand/rock -->
+<!-- HTTP/1.1 200 OK -->
+<!-- X-Powered-By: Express -->
+<!-- Content-Type: text/html; charset=utf-8 -->
+<!-- Content-Length: 12 -->
+<!-- ETag: W/"c-+evyretQemBVZfg+5RiWdeelW5k" -->
+<!-- Date: Fri, 01 Oct 2021 19:55:07 GMT -->
+<!-- Connection: keep-alive -->
+<!-- Keep-Alive: timeout=5 -->
+<!-- Request duration: 0.001649s -->
+#+END_SRC
+
+* Customers
+** Methods
+*** customers
+#+begin_src restclient
+GET http://localhost:3000/customer
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+[
+  {
+    "_id": "615cfb4e2d022b03d2d81bf2",
+    "name": "Juan",
+    "lastName": "Valdes",
+    "skills": []
+  }
+]
+// GET http://localhost:3000/customer
+// HTTP/1.1 200 OK
+// X-Powered-By: Express
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 82
+// ETag: W/"52-oXBT7Rk9Pm7OnoXXrpWyov2IT/w"
+// Date: Thu, 07 Oct 2021 20:06:53 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.019200s
+#+END_SRC
+
+*** customer
+#+begin_src restclient
+GET http://localhost:3000/customer
+#+end_src
+*** create customer
+#+begin_src restclient
+POST http://localhost:3000/customer
+Content-Type: application/json
+{
+    "name": "Rafael",
+    "lastName": "De la Vega",
+    "phone": "+51960419848",
+    "skills": [
+        {
+            "name": "JS",
+            "color": "Yellow"
+        },
+        {
+            "name": "Python",
+            "color": "Green"
+        }
+    ]
+}
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "statusCode": 400,
+  "message": [
+    "skills should not be empty",
+    "skills must be an array"
+  ],
+  "error": "Bad Request"
+}
+// POST http://localhost:3000/customer
+// HTTP/1.1 400 Bad Request
+// X-Powered-By: Express
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 107
+// ETag: W/"6b-jlksouTElFxnc4KCatwEKnnA4JE"
+// Date: Thu, 07 Oct 2021 20:06:55 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.012128s
+#+END_SRC
+
+*** update customer
+#+begin_src restclient
+PUT http://localhost:3000/customer/3
+Content-Type: application/json
+{
+    "name": "Julian"
+}
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "id": 3,
+  "name": "Julian",
+  "lastName": "De la Vega",
+  "phone": "+51960419848"
+}
+// PUT http://localhost:3000/customer/3
+// HTTP/1.1 200 OK
+// X-Powered-By: Express
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 71
+// ETag: W/"47-/QoEV8q4uNo9z8N6rgeJW+6282M"
+// Date: Fri, 01 Oct 2021 23:09:13 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.001788s
+#+END_SRC
+
+*** delete customer
+#+begin_src restclient
+DELETE http://localhost:3000/customer/2
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC html
+delete customer
+<!-- DELETE http://localhost:3000/customer/2 -->
+<!-- HTTP/1.1 200 OK -->
+<!-- X-Powered-By: Express -->
+<!-- Content-Type: text/html; charset=utf-8 -->
+<!-- Content-Length: 15 -->
+<!-- ETag: W/"f-sgJodHO6R8/jLFDSqVzauMNNuOs" -->
+<!-- Date: Fri, 01 Oct 2021 23:09:37 GMT -->
+<!-- Connection: keep-alive -->
+<!-- Keep-Alive: timeout=5 -->
+<!-- Request duration: 0.001865s -->
+#+END_SRC
+
+* Categories
+** Methods
+*** categories
+#+begin_src restclient
+GET http://localhost:3000/categories
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+[
+  {
+    "_id": "615f322fedac39653d95efa3",
+    "name": "Apple",
+    "image": "https://apple.com/"
+  }
+]
+// GET http://localhost:3000/categories
+// HTTP/1.1 200 OK
+// X-Powered-By: Express
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 80
+// ETag: W/"50-PubUUXW53tlTeJ1ITSPgxIVMoBo"
+// Date: Thu, 07 Oct 2021 17:50:35 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.013921s
+#+END_SRC
+
+*** category
+#+begin_src restclient
+GET http://localhost:3000/categories/geek
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "id": 1,
+  "name": "Geek"
+}
+// GET http://localhost:3000/categories/geek
+// HTTP/1.1 200 OK
+// X-Powered-By: Express
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 22
+// ETag: W/"16-M+dGumqt8Fml3IHHzyVjpzSoSXI"
+// Date: Fri, 01 Oct 2021 21:52:30 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.001715s
+#+END_SRC
+
+*** create category
+#+begin_src restclient
+POST http://localhost:3000/categories
+Content-Type: application/json
+{
+    "name": "Finally"
+}
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "id": 4,
+  "name": "Finally"
+}
+// POST http://localhost:3000/categories
+// HTTP/1.1 201 Created
+// X-Powered-By: Express
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 25
+// ETag: W/"19-JmQbDARCqBiDakbIXB3PDQ+9+Jo"
+// Date: Fri, 01 Oct 2021 21:57:12 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.002538s
+#+END_SRC
+
+*** update category
+#+begin_src restclient
+PUT http://localhost:3000/categories/logitech
+Content-Type: application/json
+{
+    "name": "Update category"
+}
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "id": 3,
+  "name": "Logitech"
+}
+// PUT http://localhost:3000/categories/logitech
+// HTTP/1.1 200 OK
+// X-Powered-By: Express
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 26
+// ETag: W/"1a-l2xgB2hiDIXxq2VYcXRZ8Y/qoq4"
+// Date: Fri, 01 Oct 2021 21:57:26 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.002592s
+#+END_SRC
+
+*** delete category
+#+begin_src restclient
+DELETE http://localhost:3000/categories/logitech
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC html
+category is delete
+<!-- DELETE http://localhost:3000/categories/logitech -->
+<!-- HTTP/1.1 200 OK -->
+<!-- X-Powered-By: Express -->
+<!-- Content-Type: text/html; charset=utf-8 -->
+<!-- Content-Length: 18 -->
+<!-- ETag: W/"12-JGyQ+G/taQ3FP54OSGb6l28Uc2c" -->
+<!-- Date: Fri, 01 Oct 2021 21:57:48 GMT -->
+<!-- Connection: keep-alive -->
+<!-- Keep-Alive: timeout=5 -->
+<!-- Request duration: 0.001850s -->
+#+END_SRC
+* Home
+** GEt
+#+begin_src restclient
+GET http://localhost:3000/tasks
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+[
+  {
+    "_id": "615cb0912d022b03d2d81bea",
+    "name": "tarea 1",
+    "complete": "Course from Docker"
+  },
+  {
+    "_id": "615cbdfe2d022b03d2d81beb",
+    "name": "Course from Django",
+    "complete": true
+  }
+]
+// GET http://localhost:3000/tasks
+// HTTP/1.1 200 OK
+// X-Powered-By: Express
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 164
+// ETag: W/"a4-Qv192nZqt3wpS8uNEUjkLVswbbE"
+// Date: Tue, 05 Oct 2021 22:54:24 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.034774s
+#+END_SRC
+
+#+RESULTS:
